@@ -106,7 +106,7 @@ View和Model之间不会直接的相互引用，它们之间的沟通">
 <meta property="og:image" content="http://7xr5jb.com1.z0.glb.clouddn.com/MVVM%23model_view_controller_2x.png">
 <meta property="og:image" content="http://7xr5jb.com1.z0.glb.clouddn.com/MVVM%23view_connected_controller.png">
 <meta property="og:image" content="http://7xr5jb.com1.z0.glb.clouddn.com/MVVM%23MVVM.png">
-<meta property="og:updated_time" content="2017-01-13T09:35:16.804Z">
+<meta property="og:updated_time" content="2017-01-13T09:43:25.996Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MVVM for iOS">
 <meta name="twitter:description" content="如果你接触过移动应用开发，那么你很可能已经听说过 Model-View-Controller(简称MVC)。MVC是一种相当传统、经典的开发模式，Apple官方也推荐使用这种模式开发iOS应用。在MVC下，所有对象都被分为3大类：
@@ -377,106 +377,47 @@ View和Model之间不会直接的相互引用，它们之间的沟通">
 <p>在iOS开发中，我们都在尽可能的将代码从View Controller中分离出来，以保持它的简洁。有时候，代码是少了，但仍不能使得View Controller的结构清晰。受限于生命周期和Views的回调方法，有时候同一个操作在好几个地方都需要调用。</p>
 <p>比如，当我们对一个属性(name)赋值时，我们需要让View Controller更新对应的视图,因此我们在该属性(name)的set方法中调用更新视图的方法updateUI()。<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)setName:(<span class="built_in">NSString</span> *)name &#123;</div><div class="line">    _name = name;</div><div class="line">    [<span class="keyword">self</span> updateUI];</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>但如果赋值操作是在视图加载完成之前进行的呢？最后，我们不得不这么做，在set方法中判断视图加载完毕的情况下，才调用updateUI()，接着在viewDidLoad方法内也补充调用updateUI()。</p>
-<pre><code><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)viewDidLoad &#123;</div><div class="line">    [<span class="keyword">super</span> viewDidLoad];</div><div class="line">    [<span class="keyword">self</span> updateUI];</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)setName:(<span class="built_in">NSString</span> *)name &#123;</div><div class="line">    _name = name;</div><div class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>.view.window) &#123;</div><div class="line">        [<span class="keyword">self</span> updateUI];</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</code></pre><p>MVC带来的好处已经非常多了，但我们不满足于此。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)viewDidLoad &#123;</div><div class="line">    [<span class="keyword">super</span> viewDidLoad];</div><div class="line">    [<span class="keyword">self</span> updateUI];</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)setName:(<span class="built_in">NSString</span> *)name &#123;</div><div class="line">    _name = name;</div><div class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>.view.window) &#123;</div><div class="line">        [<span class="keyword">self</span> updateUI];</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>MVC带来的好处已经非常多了，但我们不满足于此。</p>
 <h2 id="Model-View-ViewModel"><a href="#Model-View-ViewModel" class="headerlink" title="Model-View-ViewModel"></a>Model-View-ViewModel</h2><p>在实践中发现，Views和它对应的View Controller总是成对出现，如此紧密的耦合，我们不妨将它们看成同一个组件。<br><img src="http://7xr5jb.com1.z0.glb.clouddn.com/MVVM%23view_connected_controller.png" alt="view_connected_controller"></p>
 <p>所以，一个想法诞生了😄…</p>
 <p><img src="http://7xr5jb.com1.z0.glb.clouddn.com/MVVM%23MVVM.png" alt="mvvm"></p>
 <p>(MVVM是微软的一位架构师John Gossman提出的，具体历史请参阅<a href="https://en.wikipedia.org/wiki/Model–view–viewmodel" target="_blank" rel="external">这里</a>)<br>在MVVM下，View Controller不再引用Model，而是引用到View Model。</p>
 <p>像有些代码，是为了把Model的数据转换成View能展示的值，我们称这些代码为“展示逻辑”。<br>View Model就是存放”展示逻辑”的好地方。验证用户输入、网络请求 等都可以放在View Model层。<br>但关键的一点是，不要引用任何View。严格来说，在View Model中不该 <code>#import UIKit.h</code>。</p>
 <p>让我们看一下代码示例(From <a href="https://www.objc.io/issues/13-architecture/mvvm/" target="_blank" rel="external">Ash Furrow</a>)：</p>
-<p>Model层有个Person:</p>
-<pre><code>@interface Person : NSObject
-
-- (instancetype)initwithSalutation:(NSString *)salutation firstName:(NSString *)firstName lastName:(NSString *)lastName birthdate:(NSDate *)birthdate;
-
-@property (nonatomic, readonly) NSString *salutation;
-@property (nonatomic, readonly) NSString *firstName;
-@property (nonatomic, readonly) NSString *lastName;
-@property (nonatomic, readonly) NSDate *birthdate;
-
-@end
-</code></pre><p>有一个PersonViewController，在<code>viewDidLoad</code>中根据model的属性设置label。</p>
-<pre><code>- (void)viewDidLoad {
-    [super viewDidLoad];
-
-    if (self.model.salutation.length &gt; 0) {
-        self.nameLabel.text = [NSString stringWithFormat:@&quot;%@ %@ %@&quot;, self.model.salutation, self.model.firstName, self.model.lastName];
-    } else {
-        self.nameLabel.text = [NSString stringWithFormat:@&quot;%@ %@&quot;, self.model.firstName, self.model.lastName];
-    }
-
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@&quot;EEEE MMMM d, yyyy&quot;];
-    self.birthdateLabel.text = [dateFormatter stringFromDate:model.birthdate];
-}
-</code></pre><p>这就是在MVC模式下，我们通常所做的。现在让我们来看一下加入View Model后会如何：</p>
-<pre><code>@interface PersonViewModel : NSObject
-
-- (instancetype)initWithPerson:(Person *)person;
-
-@property (nonatomic, readonly) Person *person;
-
-@property (nonatomic, readonly) NSString *nameText;
-@property (nonatomic, readonly) NSString *birthdateText;
-
-@end
-</code></pre><p>View Model的内部实现是这样的：</p>
-<pre><code>@implementation PersonViewModel
-
-- (instancetype)initWithPerson:(Person *)person {
-    self = [super init];
-    if (!self) return nil;
-
-    _person = person;
-    if (person.salutation.length &gt; 0) {
-        _nameText = [NSString stringWithFormat:@&quot;%@ %@ %@&quot;, self.person.salutation, self.person.firstName, self.person.lastName];
-    } else {
-        _nameText = [NSString stringWithFormat:@&quot;%@ %@&quot;, self.person.firstName, self.person.lastName];
-    }
-
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@&quot;EEEE MMMM d, yyyy&quot;];
-    _birthdateText = [dateFormatter stringFromDate:person.birthdate];
-
-    return self;
-}
-
-@end
-</code></pre><p>原本在<code>viewDidLoad</code>中的展示逻辑，被移到View Model中。现在的<code>viewDidLoad</code>非常简洁😁：</p>
-<pre><code>- (void)viewDidLoad {
-    [super viewDidLoad];
-
-    self.nameLabel.text = self.viewModel.nameText;
-    self.birthdateLabel.text = self.viewModel.birthdateText;
-}
-</code></pre><p>正如你所看到的，相对于原来的MVC并没有大变化，还是原来的代码，只是展示逻辑被放置到View Model。<br>MVVM与MVC是兼容的，也就是说，你有机会将原有的项目从MVC模式，一点一点的过渡为MVVM模式。</p>
+<p>Model层有个Person:<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Person</span> : <span class="title">NSObject</span></span></div><div class="line"></div><div class="line">- (<span class="keyword">instancetype</span>)initwithSalutation:(<span class="built_in">NSString</span> *)salutation firstName:(<span class="built_in">NSString</span> *)firstName lastName:(<span class="built_in">NSString</span> *)lastName birthdate:(<span class="built_in">NSDate</span> *)birthdate;</div><div class="line"></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">readonly</span>) <span class="built_in">NSString</span> *salutation;</div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">readonly</span>) <span class="built_in">NSString</span> *firstName;</div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">readonly</span>) <span class="built_in">NSString</span> *lastName;</div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">readonly</span>) <span class="built_in">NSDate</span> *birthdate;</div><div class="line"></div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure></p>
+<p>有一个PersonViewController，在<code>viewDidLoad</code>中根据model的属性设置label。<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)viewDidLoad &#123;</div><div class="line">    [<span class="keyword">super</span> viewDidLoad];</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>.model.salutation.length &gt; <span class="number">0</span>) &#123;</div><div class="line">        <span class="keyword">self</span>.nameLabel.text = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"%@ %@ %@"</span>, <span class="keyword">self</span>.model.salutation, <span class="keyword">self</span>.model.firstName, <span class="keyword">self</span>.model.lastName];</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        <span class="keyword">self</span>.nameLabel.text = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"%@ %@"</span>, <span class="keyword">self</span>.model.firstName, <span class="keyword">self</span>.model.lastName];</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="built_in">NSDateFormatter</span> *dateFormatter = [[<span class="built_in">NSDateFormatter</span> alloc] init];</div><div class="line">    [dateFormatter setDateFormat:<span class="string">@"EEEE MMMM d, yyyy"</span>];</div><div class="line">    <span class="keyword">self</span>.birthdateLabel.text = [dateFormatter stringFromDate:model.birthdate];</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>这就是在MVC模式下，我们通常所做的。现在让我们来看一下加入View Model后会如何：<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">PersonViewModel</span> : <span class="title">NSObject</span></span></div><div class="line"></div><div class="line">- (<span class="keyword">instancetype</span>)initWithPerson:(Person *)person;</div><div class="line"></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">readonly</span>) Person *person;</div><div class="line"></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">readonly</span>) <span class="built_in">NSString</span> *nameText;</div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">readonly</span>) <span class="built_in">NSString</span> *birthdateText;</div><div class="line"></div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure></p>
+<p>View Model的内部实现是这样的：<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">PersonViewModel</span></span></div><div class="line"></div><div class="line">- (<span class="keyword">instancetype</span>)initWithPerson:(Person *)person &#123;</div><div class="line">    <span class="keyword">self</span> = [<span class="keyword">super</span> init];</div><div class="line">    <span class="keyword">if</span> (!<span class="keyword">self</span>) <span class="keyword">return</span> <span class="literal">nil</span>;</div><div class="line"></div><div class="line">    _person = person;</div><div class="line">    <span class="keyword">if</span> (person.salutation.length &gt; <span class="number">0</span>) &#123;</div><div class="line">        _nameText = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"%@ %@ %@"</span>, <span class="keyword">self</span>.person.salutation, <span class="keyword">self</span>.person.firstName, <span class="keyword">self</span>.person.lastName];</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        _nameText = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"%@ %@"</span>, <span class="keyword">self</span>.person.firstName, <span class="keyword">self</span>.person.lastName];</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="built_in">NSDateFormatter</span> *dateFormatter = [[<span class="built_in">NSDateFormatter</span> alloc] init];</div><div class="line">    [dateFormatter setDateFormat:<span class="string">@"EEEE MMMM d, yyyy"</span>];</div><div class="line">    _birthdateText = [dateFormatter stringFromDate:person.birthdate];</div><div class="line"></div><div class="line">    <span class="keyword">return</span> <span class="keyword">self</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure></p>
+<p>原本在<code>viewDidLoad</code>中的展示逻辑，被移到View Model中。现在的<code>viewDidLoad</code>非常简洁😁：<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)viewDidLoad &#123;</div><div class="line">    [<span class="keyword">super</span> viewDidLoad];</div><div class="line"></div><div class="line">    <span class="keyword">self</span>.nameLabel.text = <span class="keyword">self</span>.viewModel.nameText;</div><div class="line">    <span class="keyword">self</span>.birthdateLabel.text = <span class="keyword">self</span>.viewModel.birthdateText;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>正如你所看到的，相对于原来的MVC并没有大变化，还是原来的代码，只是展示逻辑被放置到View Model。<br>MVVM与MVC是兼容的，也就是说，你有机会将原有的项目从MVC模式，一点一点的过渡为MVVM模式。</p>
 <p>再看看我们可以多么轻松的写测试代码：</p>
-<pre><code>SpecBegin(Person)
-    NSString *salutation = @&quot;Dr.&quot;;
-    NSString *firstName = @&quot;first&quot;;
-    NSString *lastName = @&quot;last&quot;;
-    NSDate *birthdate = [NSDate dateWithTimeIntervalSince1970:0];
+<pre><code class="objectivec">SpecBegin(Person)
+    <span class="built_in">NSString</span> *salutation = <span class="string">@"Dr."</span>;
+    <span class="built_in">NSString</span> *firstName = <span class="string">@"first"</span>;
+    <span class="built_in">NSString</span> *lastName = <span class="string">@"last"</span>;
+    <span class="built_in">NSDate</span> *birthdate = [<span class="built_in">NSDate</span> dateWithTimeIntervalSince1970:<span class="number">0</span>];
 
-    it (@&quot;should use the salutation available. &quot;, ^{
+    it (<span class="string">@"should use the salutation available. "</span>, ^{
         Person *person = [[Person alloc] initWithSalutation:salutation firstName:firstName lastName:lastName birthdate:birthdate];
         PersonViewModel *viewModel = [[PersonViewModel alloc] initWithPerson:person];
-        expect(viewModel.nameText).to.equal(@&quot;Dr. first last&quot;);
+        expect(viewModel.nameText).to.equal(<span class="string">@"Dr. first last"</span>);
     });
 
-    it (@&quot;should not use an unavailable salutation. &quot;, ^{
-        Person *person = [[Person alloc] initWithSalutation:nil firstName:firstName lastName:lastName birthdate:birthdate];
+    it (<span class="string">@"should not use an unavailable salutation. "</span>, ^{
+        Person *person = [[Person alloc] initWithSalutation:<span class="literal">nil</span> firstName:firstName lastName:lastName birthdate:birthdate];
         PersonViewModel *viewModel = [[PersonViewModel alloc] initWithPerson:person];
-        expect(viewModel.nameText).to.equal(@&quot;first last&quot;);
+        expect(viewModel.nameText).to.equal(<span class="string">@"first last"</span>);
     });
 
-    it (@&quot;should use the correct date format. &quot;, ^{
-        Person *person = [[Person alloc] initWithSalutation:nil firstName:firstName lastName:lastName birthdate:birthdate];
+    it (<span class="string">@"should use the correct date format. "</span>, ^{
+        Person *person = [[Person alloc] initWithSalutation:<span class="literal">nil</span> firstName:firstName lastName:lastName birthdate:birthdate];
         PersonViewModel *viewModel = [[PersonViewModel alloc] initWithPerson:person];
-        expect(viewModel.birthdateText).to.equal(@&quot;Thursday January 1, 1970&quot;);
+        expect(viewModel.birthdateText).to.equal(<span class="string">@"Thursday January 1, 1970"</span>);
     });
 SpecEnd
-</code></pre><p>通过示例可以看到，使用MVVM的代价是我们的代码量会轻微增加，但好处是降低了程序的复杂性。这是一笔很划算的交易。</p>
+</code></pre>
+<p>通过示例可以看到，使用MVVM的代价是我们的代码量会轻微增加，但好处是降低了程序的复杂性。这是一笔很划算的交易。</p>
 <p>另外，可以使用开源项目<a href="https://github.com/ReactiveCocoa/ReactiveCocoa" target="_blank" rel="external">ReactiveCocoa</a>或者<a href="https://github.com/ReactiveX/RxSwift" target="_blank" rel="external">RxSwift</a>来协助你实践MVVM模式，它们的绑定机制能带给你很多的便利(学习曲线比较陡)。当然，使用ReactiveCocoa或者RxSwift都不是必须的，你完全可以不用任何框架来实践MVVM。</p>
 <p>参考链接：</p>
 <ul>
