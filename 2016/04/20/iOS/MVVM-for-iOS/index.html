@@ -1,0 +1,839 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="iOS,MVVM," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="如果你接触过移动应用开发，那么你很可能已经听说过 Model-View-Controller(简称MVC)。MVC是一种相当传统、经典的开发模式，Apple官方也推荐使用这种模式开发iOS应用。在MVC下，所有对象都被分为3大类：
+
+持有数据的Model;
+显示用户界面的View;
+View和Model通讯的桥梁:controller;
+
+View和Model之间不会直接的相互引用，它们之间的沟通">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MVVM for iOS">
+<meta property="og:url" content="http://yoursite.com/2016/04/20/iOS/MVVM-for-iOS/index.html">
+<meta property="og:site_name" content="ZhouJiatao's Blog">
+<meta property="og:description" content="如果你接触过移动应用开发，那么你很可能已经听说过 Model-View-Controller(简称MVC)。MVC是一种相当传统、经典的开发模式，Apple官方也推荐使用这种模式开发iOS应用。在MVC下，所有对象都被分为3大类：
+
+持有数据的Model;
+显示用户界面的View;
+View和Model通讯的桥梁:controller;
+
+View和Model之间不会直接的相互引用，它们之间的沟通">
+<meta property="og:image" content="https://developer.apple.com/library/ios/documentation/General/Conceptual/DevPedia-CocoaCore/Art/model_view_controller_2x.png">
+<meta property="og:image" content="http://7xr5jb.com1.z0.glb.clouddn.com/MVVM%23model_view_controller_2x.png">
+<meta property="og:image" content="http://7xr5jb.com1.z0.glb.clouddn.com/MVVM%23view_connected_controller.png">
+<meta property="og:image" content="http://7xr5jb.com1.z0.glb.clouddn.com/MVVM%23MVVM.png">
+<meta property="og:updated_time" content="2017-01-13T09:35:16.804Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MVVM for iOS">
+<meta name="twitter:description" content="如果你接触过移动应用开发，那么你很可能已经听说过 Model-View-Controller(简称MVC)。MVC是一种相当传统、经典的开发模式，Apple官方也推荐使用这种模式开发iOS应用。在MVC下，所有对象都被分为3大类：
+
+持有数据的Model;
+显示用户界面的View;
+View和Model通讯的桥梁:controller;
+
+View和Model之间不会直接的相互引用，它们之间的沟通">
+<meta name="twitter:image" content="https://developer.apple.com/library/ios/documentation/General/Conceptual/DevPedia-CocoaCore/Art/model_view_controller_2x.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/04/20/iOS/MVVM-for-iOS/"/>
+
+
+
+
+
+  <title> MVVM for iOS | ZhouJiatao's Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">ZhouJiatao's Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <p class="site-subtitle"></p>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/04/20/iOS/MVVM-for-iOS/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="ZhouJiatao">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="http://7xr5jb.com1.z0.glb.clouddn.com/avatar%23privateinvestocat.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="ZhouJiatao's Blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="ZhouJiatao's Blog" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                MVVM for iOS
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-04-20T14:30:28+00:00">
+                2016-04-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Other/" itemprop="url" rel="index">
+                    <span itemprop="name">Other</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>如果你接触过移动应用开发，那么你很可能已经听说过 <code>Model-View-Controller</code>(简称MVC)。<br>MVC是一种相当传统、经典的开发模式，<a href="https://developer.apple.com/library/ios/documentation/General/Conceptual/DevPedia-CocoaCore/MVC.html" target="_blank" rel="external">Apple</a>官方也推荐使用这种模式开发iOS应用。<br>在MVC下，所有对象都被分为3大类：</p>
+<ol>
+<li>持有数据的<code>Model</code>;</li>
+<li>显示用户界面的<code>View</code>;</li>
+<li>View和Model通讯的桥梁:<code>controller</code>;<br><img src="https://developer.apple.com/library/ios/documentation/General/Conceptual/DevPedia-CocoaCore/Art/model_view_controller_2x.png" alt="mvc diagram"></li>
+</ol>
+<p>View和Model之间不会直接的相互引用，它们之间的沟通是通过controller来协调的。用户对界面View进行了操作，View就会通知Controller更新Model的状态；Model的状态改变，会通知controller去更新界面View。</p>
+<a id="more"></a>
+<h2 id="在iOS中哪些组件分别与M、V、C对应？"><a href="#在iOS中哪些组件分别与M、V、C对应？" class="headerlink" title="在iOS中哪些组件分别与M、V、C对应？"></a>在iOS中哪些组件分别与M、V、C对应？</h2><p>Model: 通常非常轻量简单，是你自己定义的类或者结构体，比如一个拥有姓名和电话号码等数据的Person类。</p>
+<p>View: UIKit中的组件，或者是你自定义的继承于UIView的类，比如UIButton，UILabel。你可能会把它们放在 .xib 或者 Storyboard 文件中。</p>
+<p>controller: 几乎等同于视图控制器(View Controller)，通常是UIViewController或者它的子类。UIviewController就像一个繁忙的工场。拥有生命周期的它不仅负责Model和View的交互，还负责了视图的loading,appearing,disappearing等。</p>
+<p><img src="http://7xr5jb.com1.z0.glb.clouddn.com/MVVM%23model_view_controller_2x.png" alt="model-view-viewcontroller"></p>
+<h2 id="Massive-View-Controller"><a href="#Massive-View-Controller" class="headerlink" title="Massive View Controller"></a>Massive View Controller</h2><p>一个View Controller，往往包含了许多的IBOutlet属性，并且实现了多个protocol的响应方法,这足以让View Controller变得臃肿。雪上加霜的是，在实际项目中，你还能发现业务逻辑和model层的数据处理逻辑混杂其中。<br>如果有人告诉你，他在一个View Controller中看到了上千行的代码，我想你并不会为此感到惊讶。<br>因此有人调侃iOS架构中的MVC是<strong>Massive View Controller</strong>的意思。</p>
+<p>一个体积庞大的视图控制器，它所带来的弊端是显而易见的，就是难以维护，也难以写单元测试。相信有不少人已经放弃对View Controller写单元测试了。</p>
+<p>在iOS开发中，我们都在尽可能的将代码从View Controller中分离出来，以保持它的简洁。有时候，代码是少了，但仍不能使得View Controller的结构清晰。受限于生命周期和Views的回调方法，有时候同一个操作在好几个地方都需要调用。</p>
+<p>比如，当我们对一个属性(name)赋值时，我们需要让View Controller更新对应的视图,因此我们在该属性(name)的set方法中调用更新视图的方法updateUI()。<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)setName:(<span class="built_in">NSString</span> *)name &#123;</div><div class="line">    _name = name;</div><div class="line">    [<span class="keyword">self</span> updateUI];</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>但如果赋值操作是在视图加载完成之前进行的呢？最后，我们不得不这么做，在set方法中判断视图加载完毕的情况下，才调用updateUI()，接着在viewDidLoad方法内也补充调用updateUI()。</p>
+<pre><code><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)viewDidLoad &#123;</div><div class="line">    [<span class="keyword">super</span> viewDidLoad];</div><div class="line">    [<span class="keyword">self</span> updateUI];</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)setName:(<span class="built_in">NSString</span> *)name &#123;</div><div class="line">    _name = name;</div><div class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>.view.window) &#123;</div><div class="line">        [<span class="keyword">self</span> updateUI];</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</code></pre><p>MVC带来的好处已经非常多了，但我们不满足于此。</p>
+<h2 id="Model-View-ViewModel"><a href="#Model-View-ViewModel" class="headerlink" title="Model-View-ViewModel"></a>Model-View-ViewModel</h2><p>在实践中发现，Views和它对应的View Controller总是成对出现，如此紧密的耦合，我们不妨将它们看成同一个组件。<br><img src="http://7xr5jb.com1.z0.glb.clouddn.com/MVVM%23view_connected_controller.png" alt="view_connected_controller"></p>
+<p>所以，一个想法诞生了😄…</p>
+<p><img src="http://7xr5jb.com1.z0.glb.clouddn.com/MVVM%23MVVM.png" alt="mvvm"></p>
+<p>(MVVM是微软的一位架构师John Gossman提出的，具体历史请参阅<a href="https://en.wikipedia.org/wiki/Model–view–viewmodel" target="_blank" rel="external">这里</a>)<br>在MVVM下，View Controller不再引用Model，而是引用到View Model。</p>
+<p>像有些代码，是为了把Model的数据转换成View能展示的值，我们称这些代码为“展示逻辑”。<br>View Model就是存放”展示逻辑”的好地方。验证用户输入、网络请求 等都可以放在View Model层。<br>但关键的一点是，不要引用任何View。严格来说，在View Model中不该 <code>#import UIKit.h</code>。</p>
+<p>让我们看一下代码示例(From <a href="https://www.objc.io/issues/13-architecture/mvvm/" target="_blank" rel="external">Ash Furrow</a>)：</p>
+<p>Model层有个Person:</p>
+<pre><code>@interface Person : NSObject
+
+- (instancetype)initwithSalutation:(NSString *)salutation firstName:(NSString *)firstName lastName:(NSString *)lastName birthdate:(NSDate *)birthdate;
+
+@property (nonatomic, readonly) NSString *salutation;
+@property (nonatomic, readonly) NSString *firstName;
+@property (nonatomic, readonly) NSString *lastName;
+@property (nonatomic, readonly) NSDate *birthdate;
+
+@end
+</code></pre><p>有一个PersonViewController，在<code>viewDidLoad</code>中根据model的属性设置label。</p>
+<pre><code>- (void)viewDidLoad {
+    [super viewDidLoad];
+
+    if (self.model.salutation.length &gt; 0) {
+        self.nameLabel.text = [NSString stringWithFormat:@&quot;%@ %@ %@&quot;, self.model.salutation, self.model.firstName, self.model.lastName];
+    } else {
+        self.nameLabel.text = [NSString stringWithFormat:@&quot;%@ %@&quot;, self.model.firstName, self.model.lastName];
+    }
+
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@&quot;EEEE MMMM d, yyyy&quot;];
+    self.birthdateLabel.text = [dateFormatter stringFromDate:model.birthdate];
+}
+</code></pre><p>这就是在MVC模式下，我们通常所做的。现在让我们来看一下加入View Model后会如何：</p>
+<pre><code>@interface PersonViewModel : NSObject
+
+- (instancetype)initWithPerson:(Person *)person;
+
+@property (nonatomic, readonly) Person *person;
+
+@property (nonatomic, readonly) NSString *nameText;
+@property (nonatomic, readonly) NSString *birthdateText;
+
+@end
+</code></pre><p>View Model的内部实现是这样的：</p>
+<pre><code>@implementation PersonViewModel
+
+- (instancetype)initWithPerson:(Person *)person {
+    self = [super init];
+    if (!self) return nil;
+
+    _person = person;
+    if (person.salutation.length &gt; 0) {
+        _nameText = [NSString stringWithFormat:@&quot;%@ %@ %@&quot;, self.person.salutation, self.person.firstName, self.person.lastName];
+    } else {
+        _nameText = [NSString stringWithFormat:@&quot;%@ %@&quot;, self.person.firstName, self.person.lastName];
+    }
+
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@&quot;EEEE MMMM d, yyyy&quot;];
+    _birthdateText = [dateFormatter stringFromDate:person.birthdate];
+
+    return self;
+}
+
+@end
+</code></pre><p>原本在<code>viewDidLoad</code>中的展示逻辑，被移到View Model中。现在的<code>viewDidLoad</code>非常简洁😁：</p>
+<pre><code>- (void)viewDidLoad {
+    [super viewDidLoad];
+
+    self.nameLabel.text = self.viewModel.nameText;
+    self.birthdateLabel.text = self.viewModel.birthdateText;
+}
+</code></pre><p>正如你所看到的，相对于原来的MVC并没有大变化，还是原来的代码，只是展示逻辑被放置到View Model。<br>MVVM与MVC是兼容的，也就是说，你有机会将原有的项目从MVC模式，一点一点的过渡为MVVM模式。</p>
+<p>再看看我们可以多么轻松的写测试代码：</p>
+<pre><code>SpecBegin(Person)
+    NSString *salutation = @&quot;Dr.&quot;;
+    NSString *firstName = @&quot;first&quot;;
+    NSString *lastName = @&quot;last&quot;;
+    NSDate *birthdate = [NSDate dateWithTimeIntervalSince1970:0];
+
+    it (@&quot;should use the salutation available. &quot;, ^{
+        Person *person = [[Person alloc] initWithSalutation:salutation firstName:firstName lastName:lastName birthdate:birthdate];
+        PersonViewModel *viewModel = [[PersonViewModel alloc] initWithPerson:person];
+        expect(viewModel.nameText).to.equal(@&quot;Dr. first last&quot;);
+    });
+
+    it (@&quot;should not use an unavailable salutation. &quot;, ^{
+        Person *person = [[Person alloc] initWithSalutation:nil firstName:firstName lastName:lastName birthdate:birthdate];
+        PersonViewModel *viewModel = [[PersonViewModel alloc] initWithPerson:person];
+        expect(viewModel.nameText).to.equal(@&quot;first last&quot;);
+    });
+
+    it (@&quot;should use the correct date format. &quot;, ^{
+        Person *person = [[Person alloc] initWithSalutation:nil firstName:firstName lastName:lastName birthdate:birthdate];
+        PersonViewModel *viewModel = [[PersonViewModel alloc] initWithPerson:person];
+        expect(viewModel.birthdateText).to.equal(@&quot;Thursday January 1, 1970&quot;);
+    });
+SpecEnd
+</code></pre><p>通过示例可以看到，使用MVVM的代价是我们的代码量会轻微增加，但好处是降低了程序的复杂性。这是一笔很划算的交易。</p>
+<p>另外，可以使用开源项目<a href="https://github.com/ReactiveCocoa/ReactiveCocoa" target="_blank" rel="external">ReactiveCocoa</a>或者<a href="https://github.com/ReactiveX/RxSwift" target="_blank" rel="external">RxSwift</a>来协助你实践MVVM模式，它们的绑定机制能带给你很多的便利(学习曲线比较陡)。当然，使用ReactiveCocoa或者RxSwift都不是必须的，你完全可以不用任何框架来实践MVVM。</p>
+<p>参考链接：</p>
+<ul>
+<li><a href="https://developer.apple.com/library/ios/documentation/General/Conceptual/DevPedia-CocoaCore/MVC.html" target="_blank" rel="external">https://developer.apple.com/library/ios/documentation/General/Conceptual/DevPedia-CocoaCore/MVC.html</a></li>
+<li><a href="https://www.objc.io/issues/13-architecture/mvvm/" target="_blank" rel="external">https://www.objc.io/issues/13-architecture/mvvm/</a></li>
+<li><a href="http://www.teehanlax.com/blog/model-view-viewmodel-for-ios/" target="_blank" rel="external">http://www.teehanlax.com/blog/model-view-viewmodel-for-ios/</a></li>
+<li><a href="https://github.com/ReactiveCocoa/ReactiveCocoa" target="_blank" rel="external">https://github.com/ReactiveCocoa/ReactiveCocoa</a></li>
+<li><a href="https://github.com/ReactiveX/RxSwift" target="_blank" rel="external">https://github.com/ReactiveX/RxSwift</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Model–view–viewmodel" target="_blank" rel="external">https://en.wikipedia.org/wiki/Model–view–viewmodel</a></li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag"># iOS</a>
+          
+            <a href="/tags/MVVM/" rel="tag"># MVVM</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/04/09/iOS/去除UITableView分隔线的左边距/" rel="next" title="去除UITableView分隔线的左边距">
+                <i class="fa fa-chevron-left"></i> 去除UITableView分隔线的左边距
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/04/28/iOS/iOS-强制更新机制/" rel="prev" title="iOS 强制更新机制">
+                iOS 强制更新机制 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://7xr5jb.com1.z0.glb.clouddn.com/avatar%23privateinvestocat.jpg"
+               alt="ZhouJiatao" />
+          <p class="site-author-name" itemprop="name">ZhouJiatao</p>
+          <p class="site-description motion-element" itemprop="description">Write simple code</p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">26</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/RealMeZJT" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#在iOS中哪些组件分别与M、V、C对应？"><span class="nav-number">1.</span> <span class="nav-text">在iOS中哪些组件分别与M、V、C对应？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Massive-View-Controller"><span class="nav-number">2.</span> <span class="nav-text">Massive View Controller</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Model-View-ViewModel"><span class="nav-number">3.</span> <span class="nav-text">Model-View-ViewModel</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZhouJiatao</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+      <!-- UY BEGIN -->
+      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid="></script>
+      <!-- UY END -->
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
