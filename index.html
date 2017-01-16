@@ -320,23 +320,16 @@
 
       
         
-          
-            <h1 id="intro-what-is-KVO"><a href="#intro-what-is-KVO" class="headerlink" title="intro what is KVO"></a>intro what is KVO</h1><p>Key-value observing是一种机制，这种机制允许某个对象的属性发生变化时通知其它对象。</p>
-<p>Key-value observing主要的好处是，它拥有框架级的支持，对象， 你无需在其内部添加任何代码，它就具备在</p>
+          <h1 id="intro-what-is-KVO"><a href="#intro-what-is-KVO" class="headerlink" title="intro what is KVO"></a>intro what is KVO</h1><p>Key-value observing是一种机制，这种机制允许某个对象的属性发生变化时通知其它对象。</p>
+<p>Key-value observing主要的好处是，它拥有框架级的支持，使用Key-value observing无需为项目导入其它代码。</p>
 <p>不同于<code>NSNotificationCenter</code>的通知，KVO机制中没有负责发送通知的中心对象。当对象的属性发生变化时，该对象直接向所有它的观察者发送通知。</p>
-<p>相关知识：key-value coding（链接到另一篇博客）//TODO<br>－－－</p>
-<h1 id="注册Key-Value-Observing"><a href="#注册Key-Value-Observing" class="headerlink" title="注册Key-Value Observing"></a>注册Key-Value Observing</h1><p>为了正常接收到Key-Value Observing通知，必须遵循3个步骤:  </p>
-<ol>
-<li>被观察对象调用<code>addObserver:forKeyPath:options:context:</code>方法添加观察者.</li>
-<li>观察者(接收通知的一方)内部实现 <code>observeValueForKeyPath:ofObject:change:context:</code>方法用于接收通知.  </li>
-<li>当观察者不想(或不能)接收通知时，使用<code>removeObserver:forKeyPath:</code>方法注销。至少需要在观察者从内存释放之前调用该方法。  </li>
-</ol>
-<h2 id="step1-注册为观察者"><a href="#step1-注册为观察者" class="headerlink" title="step1:注册为观察者"></a>step1:注册为观察者</h2><h2 id="step2-接收通知"><a href="#step2-接收通知" class="headerlink" title="step2:接收通知"></a>step2:接收通知</h2><h1 id="step3-移除观察者"><a href="#step3-移除观察者" class="headerlink" title="step3:移除观察者"></a>step3:移除观察者</h1><h1 id="Key-Value-Observing-Implementation-Details"><a href="#Key-Value-Observing-Implementation-Details" class="headerlink" title="Key-Value Observing Implementation Details"></a>Key-Value Observing Implementation Details</h1><p><code>NSObject</code>提供了key-value observing的基本实现，通常你都不会去重写(override)它。</p>
-<h1 id="常见错误"><a href="#常见错误" class="headerlink" title="常见错误"></a>常见错误</h1><h2 id="libc-abi-dylib-terminate-handler-unexpectedly-threw-an-exception"><a href="#libc-abi-dylib-terminate-handler-unexpectedly-threw-an-exception" class="headerlink" title="libc++abi.dylib: terminate_handler unexpectedly threw an exception"></a>libc++abi.dylib: terminate_handler unexpectedly threw an exception</h2><p>I<br>controller pop时记得removeObserver，不然会报错：<br>libc++abi.dylib: terminate_handler unexpectedly threw an exception</p>
-<p>在swift中需要对变量使用使用dynamy关键字</p>
-<p>在UIView controller时 add／remove的时机<br> viewDidAppear 和 viewDidDisappear。<br>作为subcontroller时，不推荐在viewWillAppear：viewWillAppear并不会被调用</p>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2016/10/23/iOS-Registering-for-Key-Value-Observing-KVO/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
