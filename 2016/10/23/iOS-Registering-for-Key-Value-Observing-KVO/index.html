@@ -84,22 +84,22 @@
 
 
 
-<meta name="description" content="intro what is KVOKey-value observing(简称KVO)是一种机制，它允许某个对象的属性发生变化时通知其它对象。
+<meta name="description" content="Key-value observing(简称KVO)是一种机制，它允许某个对象的属性发生变化时通知其它对象。
 Key-value observing主要的好处是，它拥有框架级的支持，使用Key-value observing无需为项目导入其它代码。
-不同于NSNotificationCenter的通知，KVO机制中没有负责发送通知的中心对象。当对象的属性发生变化时">
+不同于NSNotificationCenter的通知，KVO机制中没有负责发送通知的中心对象。当对象的属性发生变化时，该对象直接向所有它的观察者发送通">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iOS Key-Value Observing(KVO)">
 <meta property="og:url" content="http://yoursite.com/2016/10/23/iOS-Registering-for-Key-Value-Observing-KVO/index.html">
 <meta property="og:site_name" content="ZhouJiatao's Blog">
-<meta property="og:description" content="intro what is KVOKey-value observing(简称KVO)是一种机制，它允许某个对象的属性发生变化时通知其它对象。
+<meta property="og:description" content="Key-value observing(简称KVO)是一种机制，它允许某个对象的属性发生变化时通知其它对象。
 Key-value observing主要的好处是，它拥有框架级的支持，使用Key-value observing无需为项目导入其它代码。
-不同于NSNotificationCenter的通知，KVO机制中没有负责发送通知的中心对象。当对象的属性发生变化时">
-<meta property="og:updated_time" content="2017-01-16T05:06:20.489Z">
+不同于NSNotificationCenter的通知，KVO机制中没有负责发送通知的中心对象。当对象的属性发生变化时，该对象直接向所有它的观察者发送通">
+<meta property="og:updated_time" content="2017-01-16T09:38:47.001Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS Key-Value Observing(KVO)">
-<meta name="twitter:description" content="intro what is KVOKey-value observing(简称KVO)是一种机制，它允许某个对象的属性发生变化时通知其它对象。
+<meta name="twitter:description" content="Key-value observing(简称KVO)是一种机制，它允许某个对象的属性发生变化时通知其它对象。
 Key-value observing主要的好处是，它拥有框架级的支持，使用Key-value observing无需为项目导入其它代码。
-不同于NSNotificationCenter的通知，KVO机制中没有负责发送通知的中心对象。当对象的属性发生变化时">
+不同于NSNotificationCenter的通知，KVO机制中没有负责发送通知的中心对象。当对象的属性发生变化时，该对象直接向所有它的观察者发送通">
 
 
 
@@ -342,7 +342,7 @@ Key-value observing主要的好处是，它拥有框架级的支持，使用Key-
       
 
       
-        <h1 id="intro-what-is-KVO"><a href="#intro-what-is-KVO" class="headerlink" title="intro what is KVO"></a>intro what is KVO</h1><p>Key-value observing(简称KVO)是一种机制，它允许某个对象的属性发生变化时通知其它对象。</p>
+        <p>Key-value observing(简称KVO)是一种机制，它允许某个对象的属性发生变化时通知其它对象。</p>
 <p>Key-value observing主要的好处是，它拥有框架级的支持，使用Key-value observing无需为项目导入其它代码。</p>
 <p>不同于<code>NSNotificationCenter</code>的通知，KVO机制中没有负责发送通知的中心对象。当对象的属性发生变化时，该对象直接向所有它的观察者发送通知。</p>
 <a id="more"></a>
@@ -544,7 +544,7 @@ Key-value observing主要的好处是，它拥有框架级的支持，使用Key-
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#intro-what-is-KVO"><span class="nav-number">1.</span> <span class="nav-text">intro what is KVO</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#注册Key-Value-Observing"><span class="nav-number">2.</span> <span class="nav-text">注册Key-Value Observing</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#step1-注册为观察者"><span class="nav-number">2.1.</span> <span class="nav-text">step1:注册为观察者</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#step3-移除观察者"><span class="nav-number">3.</span> <span class="nav-text">step3:移除观察者</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#常见问题"><span class="nav-number">4.</span> <span class="nav-text">常见问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#报错-libc-abi-dylib-terminate-handler-unexpectedly-threw-an-exception"><span class="nav-number">4.1.</span> <span class="nav-text">报错:libc++abi.dylib: terminate_handler unexpectedly threw an exception</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#KVO在swift中不管用"><span class="nav-number">4.2.</span> <span class="nav-text">KVO在swift中不管用?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#适合在ViewController-addObserver／removeObserver-的时机？"><span class="nav-number">4.3.</span> <span class="nav-text">适合在ViewController addObserver／removeObserver 的时机？</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#注册Key-Value-Observing"><span class="nav-number">1.</span> <span class="nav-text">注册Key-Value Observing</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#step1-注册为观察者"><span class="nav-number">1.1.</span> <span class="nav-text">step1:注册为观察者</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#step3-移除观察者"><span class="nav-number">2.</span> <span class="nav-text">step3:移除观察者</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#常见问题"><span class="nav-number">3.</span> <span class="nav-text">常见问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#报错-libc-abi-dylib-terminate-handler-unexpectedly-threw-an-exception"><span class="nav-number">3.1.</span> <span class="nav-text">报错:libc++abi.dylib: terminate_handler unexpectedly threw an exception</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#KVO在swift中不管用"><span class="nav-number">3.2.</span> <span class="nav-text">KVO在swift中不管用?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#适合在ViewController-addObserver／removeObserver-的时机？"><span class="nav-number">3.3.</span> <span class="nav-text">适合在ViewController addObserver／removeObserver 的时机？</span></a></li></ol></li></ol></div>
             
 
           </div>

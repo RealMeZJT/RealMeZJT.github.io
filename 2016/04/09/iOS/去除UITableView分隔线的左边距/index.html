@@ -84,19 +84,19 @@
 
 
 
-<meta name="description" content="解决办法一：在cell中模拟出分隔线将UITableView的separatorStyle属性设置为None，然后在cell的底部加一个label，设置label的leading、trailing space to superView 为0,高度固定为1或者0.5，最后设置背景色。
-解决方法二：设置cell的边距-(void)tableView:(UITableView *)tableView w">
+<meta name="description" content="解决方法一： 在 Storyboard 设置 Separator Insets在 Storyboard 中选择 Cell， Attributes inspector -&amp;gt; Separator -&amp;gt; Custom Insets:Left 填写 0。
+解决方法二：设置cell的边距1234567891011121314151617-(void)tableView:(UITableView">
 <meta property="og:type" content="article">
 <meta property="og:title" content="去除UITableView分隔线的左边距">
 <meta property="og:url" content="http://yoursite.com/2016/04/09/iOS/去除UITableView分隔线的左边距/index.html">
 <meta property="og:site_name" content="ZhouJiatao's Blog">
-<meta property="og:description" content="解决办法一：在cell中模拟出分隔线将UITableView的separatorStyle属性设置为None，然后在cell的底部加一个label，设置label的leading、trailing space to superView 为0,高度固定为1或者0.5，最后设置背景色。
-解决方法二：设置cell的边距-(void)tableView:(UITableView *)tableView w">
-<meta property="og:updated_time" content="2017-01-13T04:46:12.189Z">
+<meta property="og:description" content="解决方法一： 在 Storyboard 设置 Separator Insets在 Storyboard 中选择 Cell， Attributes inspector -&amp;gt; Separator -&amp;gt; Custom Insets:Left 填写 0。
+解决方法二：设置cell的边距1234567891011121314151617-(void)tableView:(UITableView">
+<meta property="og:updated_time" content="2017-01-16T09:38:47.001Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="去除UITableView分隔线的左边距">
-<meta name="twitter:description" content="解决办法一：在cell中模拟出分隔线将UITableView的separatorStyle属性设置为None，然后在cell的底部加一个label，设置label的leading、trailing space to superView 为0,高度固定为1或者0.5，最后设置背景色。
-解决方法二：设置cell的边距-(void)tableView:(UITableView *)tableView w">
+<meta name="twitter:description" content="解决方法一： 在 Storyboard 设置 Separator Insets在 Storyboard 中选择 Cell， Attributes inspector -&amp;gt; Separator -&amp;gt; Custom Insets:Left 填写 0。
+解决方法二：设置cell的边距1234567891011121314151617-(void)tableView:(UITableView">
 
 
 
@@ -361,25 +361,10 @@
       
 
       
-        <h3 id="解决办法一：在cell中模拟出分隔线"><a href="#解决办法一：在cell中模拟出分隔线" class="headerlink" title="解决办法一：在cell中模拟出分隔线"></a>解决办法一：在cell中模拟出分隔线</h3><p>将UITableView的separatorStyle属性设置为None，然后在cell的底部加一个label，设置label的leading、trailing space to superView 为0,高度固定为1或者0.5，最后设置背景色。</p>
-<h3 id="解决方法二：设置cell的边距"><a href="#解决方法二：设置cell的边距" class="headerlink" title="解决方法二：设置cell的边距"></a>解决方法二：设置cell的边距</h3><pre><code>-(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Remove seperator inset
-    if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
-           [cell setSeparatorInset:UIEdgeInsetsZero];
-    }
-
-    // Prevent the cell from inheriting the Table View&apos;s margin settings
-    if ([cell respondsToSelector:@selector(setPreservesSuperviewLayoutMargins:)]) {
-        [cell setPreservesSuperviewLayoutMargins:NO];
-    }
-
-    // Explictly set your cell&apos;s layout margins
-    if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
-        [cell setLayoutMargins:UIEdgeInsetsZero];
-    }
-}
-</code></pre><p>参考链接：<a href="http://stackoverflow.com/questions/25770119/ios-8-uitableview-separator-inset-0-not-working" target="_blank" rel="external">http://stackoverflow.com/questions/25770119/ios-8-uitableview-separator-inset-0-not-working</a></p>
+        <h1 id="解决方法一：-在-Storyboard-设置-Separator-Insets"><a href="#解决方法一：-在-Storyboard-设置-Separator-Insets" class="headerlink" title="解决方法一： 在 Storyboard 设置 Separator Insets"></a>解决方法一： 在 Storyboard 设置 Separator Insets</h1><p>在 Storyboard 中选择 Cell， Attributes inspector -&gt; Separator -&gt; Custom Insets:<br>Left 填写 0。</p>
+<h1 id="解决方法二：设置cell的边距"><a href="#解决方法二：设置cell的边距" class="headerlink" title="解决方法二：设置cell的边距"></a>解决方法二：设置cell的边距</h1><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">-(<span class="keyword">void</span>)tableView:(<span class="built_in">UITableView</span> *)tableView willDisplayCell:(<span class="built_in">UITableViewCell</span> *)cell forRowAtIndexPath:(<span class="built_in">NSIndexPath</span> *)indexPath</div><div class="line">&#123;</div><div class="line">    <span class="comment">// Remove seperator inset</span></div><div class="line">    <span class="keyword">if</span> ([cell respondsToSelector:<span class="keyword">@selector</span>(setSeparatorInset:)]) &#123;</div><div class="line">           [cell setSeparatorInset:<span class="built_in">UIEdgeInsetsZero</span>];</div><div class="line">    &#125;</div><div class="line">	</div><div class="line">    <span class="comment">// Prevent the cell from inheriting the Table View's margin settings</span></div><div class="line">    <span class="keyword">if</span> ([cell respondsToSelector:<span class="keyword">@selector</span>(setPreservesSuperviewLayoutMargins:)]) &#123;</div><div class="line">        [cell setPreservesSuperviewLayoutMargins:<span class="literal">NO</span>];</div><div class="line">    &#125;</div><div class="line">	</div><div class="line">    <span class="comment">// Explictly set your cell's layout margins</span></div><div class="line">    <span class="keyword">if</span> ([cell respondsToSelector:<span class="keyword">@selector</span>(setLayoutMargins:)]) &#123;</div><div class="line">        [cell setLayoutMargins:<span class="built_in">UIEdgeInsetsZero</span>];</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="解决办法三：在cell中模拟出分隔线"><a href="#解决办法三：在cell中模拟出分隔线" class="headerlink" title="解决办法三：在cell中模拟出分隔线"></a>解决办法三：在cell中模拟出分隔线</h1><p>将UITableView的separatorStyle属性设置为None，然后在cell的底部加一个View，设置该View的leading、trailing space to superView 为0,高度固定为1或者0.5，最后设置背景色。</p>
+<p>参考链接：<a href="http://stackoverflow.com/questions/25770119/ios-8-uitableview-separator-inset-0-not-working" target="_blank" rel="external">http://stackoverflow.com/questions/25770119/ios-8-uitableview-separator-inset-0-not-working</a></p>
 
       
     </div>
@@ -562,7 +547,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#解决办法一：在cell中模拟出分隔线"><span class="nav-number">1.</span> <span class="nav-text">解决办法一：在cell中模拟出分隔线</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决方法二：设置cell的边距"><span class="nav-number">2.</span> <span class="nav-text">解决方法二：设置cell的边距</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#解决方法一：-在-Storyboard-设置-Separator-Insets"><span class="nav-number">1.</span> <span class="nav-text">解决方法一： 在 Storyboard 设置 Separator Insets</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#解决方法二：设置cell的边距"><span class="nav-number">2.</span> <span class="nav-text">解决方法二：设置cell的边距</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#解决办法三：在cell中模拟出分隔线"><span class="nav-number">3.</span> <span class="nav-text">解决办法三：在cell中模拟出分隔线</span></a></li></ol></div>
             
 
           </div>
