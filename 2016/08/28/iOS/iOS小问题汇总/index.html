@@ -84,17 +84,17 @@
 
 
 
-<meta name="description" content="这里收录了iOS开发中能遇到的各种小坑。">
+<meta name="description" content="这里收录了iOS开发中能遇到的各种小问题。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iOS小问题汇总">
 <meta property="og:url" content="http://yoursite.com/2016/08/28/iOS/iOS小问题汇总/index.html">
 <meta property="og:site_name" content="ZhouJiatao's Blog">
-<meta property="og:description" content="这里收录了iOS开发中能遇到的各种小坑。">
+<meta property="og:description" content="这里收录了iOS开发中能遇到的各种小问题。">
 <meta property="og:image" content="http://7xr5jb.com1.z0.glb.clouddn.com/buildPrecessing.jpg">
-<meta property="og:updated_time" content="2017-01-13T04:46:12.189Z">
+<meta property="og:updated_time" content="2017-01-16T09:51:51.701Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS小问题汇总">
-<meta name="twitter:description" content="这里收录了iOS开发中能遇到的各种小坑。">
+<meta name="twitter:description" content="这里收录了iOS开发中能遇到的各种小问题。">
 <meta name="twitter:image" content="http://7xr5jb.com1.z0.glb.clouddn.com/buildPrecessing.jpg">
 
 
@@ -338,7 +338,7 @@
       
 
       
-        <p>这里收录了iOS开发中能遇到的各种小坑。</p>
+        <p>这里收录了iOS开发中能遇到的各种小问题。</p>
 <a id="more"></a>
 <h1 id="NSArrayI-addObject-unrecognized"><a href="#NSArrayI-addObject-unrecognized" class="headerlink" title="[__NSArrayI addObject] unrecognized"></a>[__NSArrayI addObject] unrecognized</h1><p>当你运行程序时出现以下错误信息：</p>
 <pre><code>NSMutableArray addObject: -[__NSArrayI addObject:]: unrecognized selector sent to instance
@@ -360,6 +360,7 @@ process launch failed: Security
 <h1 id="iTunes-connect找不到新上传的build"><a href="#iTunes-connect找不到新上传的build" class="headerlink" title="iTunes connect找不到新上传的build"></a>iTunes connect找不到新上传的build</h1><p>通过Xcode上传了新版本，但iTunes connect的Build选择框看不到该版本?<br><!-- more --><br>当你通过Xcode上传了版本后，在iTunes connect-&gt;MyApp-&gt;选中你的App-&gt;Activity可以看到你刚才上传的版本。并显示状态为 “Processing”。此时已经证明你成功上传版本到iTunes connect了。</p>
 <p><img src="http://7xr5jb.com1.z0.glb.clouddn.com/buildPrecessing.jpg" alt="buildProcessing"></p>
 <p>但在“processing”状态下的“Build”，是不能被选用的。你需要等待，当“processing”状态过后，你就可以选用此“Build”。<br>我上传的一个50Mb的app，需要等待半个小时左右。</p>
+<h1 id="在-StoryBoard-中移除-Static-TableView-的个别-Cell-的分隔线"><a href="#在-StoryBoard-中移除-Static-TableView-的个别-Cell-的分隔线" class="headerlink" title="在 StoryBoard 中移除 Static TableView 的个别 Cell 的分隔线"></a>在 StoryBoard 中移除 Static TableView 的个别 Cell 的分隔线</h1><p>通过将分隔线的 left inset 设置为超出屏幕宽度的值。<br>在 Storyboard 中选择 Cell， Attributes inspector -&gt; Separator -&gt; Custom Insets:<br>Left 填写 2000。(数字大到足以超出屏幕即可)  </p>
 
       
     </div>
@@ -536,7 +537,7 @@ process launch failed: Security
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#NSArrayI-addObject-unrecognized"><span class="nav-number">1.</span> <span class="nav-text">[__NSArrayI addObject] unrecognized</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#为什么edit-menu不显示中文"><span class="nav-number">2.</span> <span class="nav-text">为什么edit_menu不显示中文</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#‘Xcode-process-launch-failed-Security’"><span class="nav-number">3.</span> <span class="nav-text">‘Xcode process launch failed: Security’</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Xcode上传Archive时发生“Cannot-verify-client-3000-”错误"><span class="nav-number">4.</span> <span class="nav-text">Xcode上传Archive时发生“Cannot verify client. (3000)”错误</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#iTunes-connect找不到新上传的build"><span class="nav-number">5.</span> <span class="nav-text">iTunes connect找不到新上传的build</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#NSArrayI-addObject-unrecognized"><span class="nav-number">1.</span> <span class="nav-text">[__NSArrayI addObject] unrecognized</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#为什么edit-menu不显示中文"><span class="nav-number">2.</span> <span class="nav-text">为什么edit_menu不显示中文</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#‘Xcode-process-launch-failed-Security’"><span class="nav-number">3.</span> <span class="nav-text">‘Xcode process launch failed: Security’</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Xcode上传Archive时发生“Cannot-verify-client-3000-”错误"><span class="nav-number">4.</span> <span class="nav-text">Xcode上传Archive时发生“Cannot verify client. (3000)”错误</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#iTunes-connect找不到新上传的build"><span class="nav-number">5.</span> <span class="nav-text">iTunes connect找不到新上传的build</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#在-StoryBoard-中移除-Static-TableView-的个别-Cell-的分隔线"><span class="nav-number">6.</span> <span class="nav-text">在 StoryBoard 中移除 Static TableView 的个别 Cell 的分隔线</span></a></li></ol></div>
             
 
           </div>
