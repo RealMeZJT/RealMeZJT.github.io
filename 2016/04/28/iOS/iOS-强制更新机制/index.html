@@ -84,21 +84,18 @@
 
 
 
-<meta name="description" content="为你的app预留一个强制更新的功能总是没错的。就我而言，就遇到过这么些情况。有比较任性的：“嘿，我们这个版本有重大的更新，为了让用户体验到我们的最新功能，请强制他们更新”；
-有后台更新请求接口的：“这个操作的请求接口现在需要app多传这么些参数给后台，以配合另一个新功能。等新版app上线后，我们就将新的后台代码放到线上，而app端需要强制用户更新到最新版”。">
+<meta name="description" content="随着公司业务的不断演化，或者是后台接口的重大更新，某些旧版本App已经不能正常为用户提供服务。这种情况下，应该强制用户更新 App。否则，继续使用有问题的旧版 App 将导致错误数据的产生，频繁的错误和闪退也会引发用户更加强烈的不满。值得注意的是，需要旧版本进行强制更新，首先必须确保旧版本已经预留了强制更新的功能。个人建议最好在第一个版本就预留强制更新功能，而且非常建议 App 向后台发送的的每个">
 <meta property="og:type" content="article">
-<meta property="og:title" content="iOS 强制更新机制">
+<meta property="og:title" content="iOS App强制更新机制">
 <meta property="og:url" content="http://yoursite.com/2016/04/28/iOS/iOS-强制更新机制/index.html">
 <meta property="og:site_name" content="ZhouJiatao's Blog">
-<meta property="og:description" content="为你的app预留一个强制更新的功能总是没错的。就我而言，就遇到过这么些情况。有比较任性的：“嘿，我们这个版本有重大的更新，为了让用户体验到我们的最新功能，请强制他们更新”；
-有后台更新请求接口的：“这个操作的请求接口现在需要app多传这么些参数给后台，以配合另一个新功能。等新版app上线后，我们就将新的后台代码放到线上，而app端需要强制用户更新到最新版”。">
+<meta property="og:description" content="随着公司业务的不断演化，或者是后台接口的重大更新，某些旧版本App已经不能正常为用户提供服务。这种情况下，应该强制用户更新 App。否则，继续使用有问题的旧版 App 将导致错误数据的产生，频繁的错误和闪退也会引发用户更加强烈的不满。值得注意的是，需要旧版本进行强制更新，首先必须确保旧版本已经预留了强制更新的功能。个人建议最好在第一个版本就预留强制更新功能，而且非常建议 App 向后台发送的的每个">
 <meta property="og:image" content="http://7xr5jb.com1.z0.glb.clouddn.com/ForcedUpdate%23Xcode.png">
 <meta property="og:image" content="http://7xr5jb.com1.z0.glb.clouddn.com/ForcedUpdate%23AppleId.png">
-<meta property="og:updated_time" content="2017-01-13T04:46:12.189Z">
+<meta property="og:updated_time" content="2017-01-16T07:48:40.076Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="iOS 强制更新机制">
-<meta name="twitter:description" content="为你的app预留一个强制更新的功能总是没错的。就我而言，就遇到过这么些情况。有比较任性的：“嘿，我们这个版本有重大的更新，为了让用户体验到我们的最新功能，请强制他们更新”；
-有后台更新请求接口的：“这个操作的请求接口现在需要app多传这么些参数给后台，以配合另一个新功能。等新版app上线后，我们就将新的后台代码放到线上，而app端需要强制用户更新到最新版”。">
+<meta name="twitter:title" content="iOS App强制更新机制">
+<meta name="twitter:description" content="随着公司业务的不断演化，或者是后台接口的重大更新，某些旧版本App已经不能正常为用户提供服务。这种情况下，应该强制用户更新 App。否则，继续使用有问题的旧版 App 将导致错误数据的产生，频繁的错误和闪退也会引发用户更加强烈的不满。值得注意的是，需要旧版本进行强制更新，首先必须确保旧版本已经预留了强制更新的功能。个人建议最好在第一个版本就预留强制更新功能，而且非常建议 App 向后台发送的的每个">
 <meta name="twitter:image" content="http://7xr5jb.com1.z0.glb.clouddn.com/ForcedUpdate%23Xcode.png">
 
 
@@ -133,7 +130,7 @@
 
 
 
-  <title> iOS 强制更新机制 | ZhouJiatao's Blog </title>
+  <title> iOS App强制更新机制 | ZhouJiatao's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -270,7 +267,7 @@
             
             
               
-                iOS 强制更新机制
+                iOS App强制更新机制
               
             
           </h1>
@@ -343,25 +340,12 @@
       
 
       
-        <p>为你的app预留一个强制更新的功能总是没错的。<br>就我而言，就遇到过这么些情况。<br>有比较任性的：“嘿，我们这个版本有重大的更新，为了让用户体验到我们的最新功能，请强制他们更新”；</p>
-<p>有后台更新请求接口的：“这个操作的请求接口现在需要app多传这么些参数给后台，以配合另一个新功能。等新版app上线后，我们就将新的后台代码放到线上，而app端需要强制用户更新到最新版”。</p>
+        <p>随着公司业务的不断演化，或者是后台接口的重大更新，某些旧版本App已经不能正常为用户提供服务。<br>这种情况下，应该强制用户更新 App。<br>否则，继续使用有问题的旧版 App 将导致错误数据的产生，频繁的错误和闪退也会引发用户更加强烈的不满。<br>值得注意的是，需要旧版本进行强制更新，首先必须确保旧版本已经预留了强制更新的功能。<br>个人建议最好在第一个版本就预留强制更新功能，而且非常建议 App 向后台发送的的每个请求，都附带上 App 版本号、设备的系统版本号。让后台知道版本信息，有利于它灵活的限制 App 的请求（比如，需要限制使用某个功能必须更新到最新版）；另外对于排除错误也是相当有利。</p>
 <a id="more"></a>
-<p>.<br>.<br>.</p>
-<p>强制更新很可能会惹恼你的用户,请慎用（当然，往往不由得我们决定，而是项目负责人说了算）。</p>
-<p>接着我们来探讨，有哪些强制更新的机制：</p>
-<h2 id="利用消息推送"><a href="#利用消息推送" class="headerlink" title="利用消息推送"></a>利用消息推送</h2><p>需要后台的配合。app端和后台约定好，消息推送传过来的json数据，什么字段用于判断强制更新，该字段什么值时表示需要进行强制更新。<br>当需要强制更新的时候，后台向所有设备发送一次推送消息。当app端接收到该推送消息的时，弹窗提示用户进行更新。值得注意的是，后台只发送一次推送，为了保证下次打开app时，仍能检查到需要更新最新版，你需要将用到缓存。然后在 AppDelegate的<code>applicationDidBecomeActive</code>方法内获取缓存数据检测是否强制更新。</p>
-<p>比如：你可以收到强制更新的推送时，就将当前版本号缓存起来 <code>NSUserDefaults.standardUserDefaults().setObject(currVersion, forKey:&quot;theVersionNeedUpdate&quot;)</code><br>然后在AppDelegate的<code>applicationDidBecomeActive</code>方法内判断”theVersionNeedUpdate”与当前版本是否相等，是的话，表示还没更新。如果不相等就表示安装了新版本。</p>
-<pre><code>func applicationDidBecomeActive(application: UIApplication) {
-        let theVersionNeedUpdate = NSUserDefaults.standardUserDefaults().stringForKey(&quot;theVersionNeedUpdate&quot;)
-        if  currVersion == theVersionNeedUpdate {
-            showForceUpdateAlert()
-        }
-}
-</code></pre><p>使用此机制，后台可以很及时的控制app强制更新。当然，致命的弊端就是：如果用户禁止消息推送，就作废了🤕。<br>因此该机制只能作为辅助手段。</p>
-<h2 id="利用itunes版本号"><a href="#利用itunes版本号" class="headerlink" title="利用itunes版本号"></a>利用itunes版本号</h2><p>一般使用的是GNU 风格的版本号：<code>主版本号.子版本号.[修正版本号]</code><br><img src="http://7xr5jb.com1.z0.glb.clouddn.com/ForcedUpdate%23Xcode.png" alt="xcode setting"><br>我们为app设置的版本号可以通过这条URL获取到：<code>https://itunes.apple.com/lookup?id=&lt;Apple ID&gt;</code><br>当你在itunesconnect创建应用时，就有一个固定的Apple ID与该应用对应。在itunesconnect上可查看：<br><img src="http://7xr5jb.com1.z0.glb.clouddn.com/ForcedUpdate%23AppleId.png" alt="apple id on itunesconnect"></p>
-<p>该URL返回的json数据，内有<code>version</code>字段，对应的值就是该app在App Store上的最新版本号。<br>所以，有这么一个主意，通过对比<strong>主</strong>版本号来标识是否需要进行强制更新。app通过对比返回数据的主版本号和当前app的主版本号，当前者比后者大时，进行强制更新。<br>比如，App Store上现有版本是2.0.0，现在发布一个新版本，需要旧版本强制提示更新，那么新版本号该改为3.0.0。当新版本审核通过后，从iTunes获取到的版本号将变为3.0.0。旧版本app的主版本号低于App Store上的主版本号，就会判断到需要强制提示更新。</p>
-<p>使用此机制的好处是，不依赖后台。<br>坏处是网络状况不佳的情况下，检测更新不及时。</p>
-<h2 id="配合后台接口"><a href="#配合后台接口" class="headerlink" title="配合后台接口"></a>配合后台接口</h2><p>规定每个网络请求都传递app的内部版本号，后台根据app版本号判断是否需要强制更新，如果需强制更新，则向此次请求返回约定好的错误信息，app端接收到该错误信息，提示用户更新。<br>好处是 检测更新及时。<br>坏处是 需要后台配合，对于旧项目，后台还需要为旧接口补充判断强制更新的逻辑。</p>
+<h2 id="配合后台接口"><a href="#配合后台接口" class="headerlink" title="配合后台接口"></a>配合后台接口</h2><p>规定向后台发送的每个网络请求都传递 App 的内部版本号，后台根据app版本号判断是否需要强制更新，如果需强制更新，则向此次请求返回约定好的错误信息，App 端接收到该错误信息，用弹窗提示用户更新。<br>这样能确保在提示用户更新的前提下，拦截每次旧版 App 发送请求，不至于后台产生错误信息。<br>好处是 检测更新及时，有利于它灵活的限制App的请求。<br>坏处是 需要后台配合，对于原本只有网页版的旧项目，后台还需要为旧接口补充判断版本号的逻辑。  </p>
+<h2 id="利用itunes版本号"><a href="#利用itunes版本号" class="headerlink" title="利用itunes版本号"></a>利用itunes版本号</h2><p>一般使用的是 GNU 风格的版本号：<code>主版本号.子版本号.[修正版本号]</code><br><img src="http://7xr5jb.com1.z0.glb.clouddn.com/ForcedUpdate%23Xcode.png" alt="xcode setting"><br>我们为 app 设置的版本号可以通过这条URL获取到：<code>https://itunes.apple.com/lookup?id=&lt;Apple ID&gt;</code><br>当你在 itunesconnect 创建应用时，就有一个固定的 Apple ID 与该应用对应。在 itunesconnect 上可查看：<br><img src="http://7xr5jb.com1.z0.glb.clouddn.com/ForcedUpdate%23AppleId.png" alt="apple id on itunesconnect"></p>
+<p>该URL返回的 json 数据，内有 <code>version</code> 字段，对应的值就是该 App 在 App Store 上的最新版本号。<br>所以，有这么一个主意，通过对比<strong>主</strong>版本号来标识是否需要进行强制更新。app通过对比返回数据的主版本号和当前app的主版本号，当前者比后者大时，弹窗提示更新，并且弹窗不可关闭，只提供一个跳转 App Store 的按钮。<br>比如，App Store 上现有版本是2.0.0，现在发布一个新版本，需要旧版本强制提示更新，那么新版本号该改为3.0.0。当新版本审核通过后，从 iTunes 获取到的版本号将变为3.0.0。旧版本 app 的主版本号低于 App Store 上的主版本号，就会判断到需要强制提示更新。</p>
+<p>使用此机制的好处是，不依赖后台。<br>坏处是 相比公司自己国内的服务器，访问Apple服务器的速度会慢一些。  </p>
 
       
     </div>
@@ -540,7 +524,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#利用消息推送"><span class="nav-number">1.</span> <span class="nav-text">利用消息推送</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#利用itunes版本号"><span class="nav-number">2.</span> <span class="nav-text">利用itunes版本号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配合后台接口"><span class="nav-number">3.</span> <span class="nav-text">配合后台接口</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#配合后台接口"><span class="nav-number">1.</span> <span class="nav-text">配合后台接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#利用itunes版本号"><span class="nav-number">2.</span> <span class="nav-text">利用itunes版本号</span></a></li></ol></div>
             
 
           </div>
