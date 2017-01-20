@@ -90,7 +90,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/01/20/iOS/如何优雅的移除所有subview/index.html">
 <meta property="og:site_name" content="ZhouJiatao's Blog">
 <meta property="og:description" content="UIView 并没有提供移除所有 subview 的方法。需要我们遍历 subview， 并逐一调用其 removeFromSuperview() 方法。  但这并不意味着需要写出冗长的 for 循环。">
-<meta property="og:updated_time" content="2017-01-20T03:34:28.146Z">
+<meta property="og:updated_time" content="2017-01-20T03:40:30.305Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="如何优雅的移除所有 subview">
 <meta name="twitter:description" content="UIView 并没有提供移除所有 subview 的方法。需要我们遍历 subview， 并逐一调用其 removeFromSuperview() 方法。  但这并不意味着需要写出冗长的 for 循环。">
@@ -339,16 +339,12 @@
         <p>UIView 并没有提供移除所有 subview 的方法。需要我们遍历 subview， 并逐一调用其 <code>removeFromSuperview()</code> 方法。  但这并不意味着需要写出冗长的 for 循环。  </p>
 <a id="more"></a>
 <p>比如移除 someUIView 对象的所有 subview:  </p>
-<p>Swift</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">someUIView.subviews.forEach(&#123; $<span class="number">0</span>.removeFromSuperview() &#125;)</div></pre></td></tr></table></figure>
-<p>Objective-C</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[[someUIView subviews] makeObjectsPerformSelector:<span class="keyword">@selector</span>(removeFromSuperview)];</div></pre></td></tr></table></figure>
+<p>Swift<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">someUIView.subviews.forEach(&#123; $<span class="number">0</span>.removeFromSuperview() &#125;)</div></pre></td></tr></table></figure></p>
+<p>Objective-C<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[[someUIView subviews] makeObjectsPerformSelector:<span class="keyword">@selector</span>(removeFromSuperview)];</div></pre></td></tr></table></figure></p>
 <p>在需要频繁使用到移除所有 subview 功能的情况下，不妨拓展 UIView 的方法:  </p>
-<p>Swift</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">extension</span> <span class="title">UIView</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">removeAllSubviews</span><span class="params">()</span></span> &#123;</div><div class="line">        subviews.forEach(&#123; $<span class="number">0</span>.removeFromSuperview() &#125;)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>Swift<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">extension</span> <span class="title">UIView</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">removeAllSubviews</span><span class="params">()</span></span> &#123;</div><div class="line">        subviews.forEach(&#123; $<span class="number">0</span>.removeFromSuperview() &#125;)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>移除移除所有 subview 时这么使用:   </p>
-<p>Swift</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">someUIView. removeAllSubviews()</div></pre></td></tr></table></figure>
+<p>Swift<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">someUIView. removeAllSubviews()</div></pre></td></tr></table></figure></p>
 <p>(Objective-C 示例省略)</p>
 
       
