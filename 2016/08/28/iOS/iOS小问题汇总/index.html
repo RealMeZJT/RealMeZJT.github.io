@@ -91,7 +91,7 @@
 <meta property="og:site_name" content="ZhouJiatao's Blog">
 <meta property="og:description" content="这里收录了iOS开发中能遇到的各种小问题。">
 <meta property="og:image" content="http://7xr5jb.com1.z0.glb.clouddn.com/buildPrecessing.jpg">
-<meta property="og:updated_time" content="2017-01-16T09:51:51.701Z">
+<meta property="og:updated_time" content="2017-01-20T09:09:51.482Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS小问题汇总">
 <meta name="twitter:description" content="这里收录了iOS开发中能遇到的各种小问题。">
@@ -361,6 +361,8 @@ process launch failed: Security
 <p><img src="http://7xr5jb.com1.z0.glb.clouddn.com/buildPrecessing.jpg" alt="buildProcessing"></p>
 <p>但在“processing”状态下的“Build”，是不能被选用的。你需要等待，当“processing”状态过后，你就可以选用此“Build”。<br>我上传的一个50Mb的app，需要等待半个小时左右。</p>
 <h1 id="在-StoryBoard-中移除-Static-TableView-的个别-Cell-的分隔线"><a href="#在-StoryBoard-中移除-Static-TableView-的个别-Cell-的分隔线" class="headerlink" title="在 StoryBoard 中移除 Static TableView 的个别 Cell 的分隔线"></a>在 StoryBoard 中移除 Static TableView 的个别 Cell 的分隔线</h1><p>通过将分隔线的 left inset 设置为超出屏幕宽度的值。<br>在 Storyboard 中选择 Cell， Attributes inspector -&gt; Separator -&gt; Custom Insets:<br>Left 填写 2000。(数字大到足以超出屏幕即可)  </p>
+<h1 id="去除-UITableView-多余的分隔线"><a href="#去除-UITableView-多余的分隔线" class="headerlink" title="去除 UITableView 多余的分隔线"></a>去除 UITableView 多余的分隔线</h1><p>当 cell 的数量不足以填满整个屏幕时， tableview 会在底部显示出许多分割线。<br>如何去除多余的分隔线？ 为 tableview 添加 footerView 即可(代码和 UIStoryboard 都可以添加)。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">tableView.tableFooterView = <span class="type">UIView</span>()</div></pre></td></tr></table></figure>
 
       
     </div>
@@ -537,7 +539,7 @@ process launch failed: Security
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#NSArrayI-addObject-unrecognized"><span class="nav-number">1.</span> <span class="nav-text">[__NSArrayI addObject] unrecognized</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#为什么edit-menu不显示中文"><span class="nav-number">2.</span> <span class="nav-text">为什么edit_menu不显示中文</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#‘Xcode-process-launch-failed-Security’"><span class="nav-number">3.</span> <span class="nav-text">‘Xcode process launch failed: Security’</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Xcode上传Archive时发生“Cannot-verify-client-3000-”错误"><span class="nav-number">4.</span> <span class="nav-text">Xcode上传Archive时发生“Cannot verify client. (3000)”错误</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#iTunes-connect找不到新上传的build"><span class="nav-number">5.</span> <span class="nav-text">iTunes connect找不到新上传的build</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#在-StoryBoard-中移除-Static-TableView-的个别-Cell-的分隔线"><span class="nav-number">6.</span> <span class="nav-text">在 StoryBoard 中移除 Static TableView 的个别 Cell 的分隔线</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#NSArrayI-addObject-unrecognized"><span class="nav-number">1.</span> <span class="nav-text">[__NSArrayI addObject] unrecognized</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#为什么edit-menu不显示中文"><span class="nav-number">2.</span> <span class="nav-text">为什么edit_menu不显示中文</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#‘Xcode-process-launch-failed-Security’"><span class="nav-number">3.</span> <span class="nav-text">‘Xcode process launch failed: Security’</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Xcode上传Archive时发生“Cannot-verify-client-3000-”错误"><span class="nav-number">4.</span> <span class="nav-text">Xcode上传Archive时发生“Cannot verify client. (3000)”错误</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#iTunes-connect找不到新上传的build"><span class="nav-number">5.</span> <span class="nav-text">iTunes connect找不到新上传的build</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#在-StoryBoard-中移除-Static-TableView-的个别-Cell-的分隔线"><span class="nav-number">6.</span> <span class="nav-text">在 StoryBoard 中移除 Static TableView 的个别 Cell 的分隔线</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#去除-UITableView-多余的分隔线"><span class="nav-number">7.</span> <span class="nav-text">去除 UITableView 多余的分隔线</span></a></li></ol></div>
             
 
           </div>

@@ -90,7 +90,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/01/20/iOS/如何优雅的移除所有subview/index.html">
 <meta property="og:site_name" content="ZhouJiatao's Blog">
 <meta property="og:description" content="UIView 并没有提供移除所有 subview 的方法。需要我们遍历 subview， 并逐一调用其 removeFromSuperview() 方法。  但这并不意味着需要写出冗长的 for 循环。">
-<meta property="og:updated_time" content="2017-01-20T03:40:30.305Z">
+<meta property="og:updated_time" content="2017-01-20T09:09:51.482Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="如何优雅的移除所有 subview">
 <meta name="twitter:description" content="UIView 并没有提供移除所有 subview 的方法。需要我们遍历 subview， 并逐一调用其 removeFromSuperview() 方法。  但这并不意味着需要写出冗长的 for 循环。">
@@ -338,6 +338,7 @@
       
         <p>UIView 并没有提供移除所有 subview 的方法。需要我们遍历 subview， 并逐一调用其 <code>removeFromSuperview()</code> 方法。  但这并不意味着需要写出冗长的 for 循环。  </p>
 <a id="more"></a>
+<p>Objective-C 的数组对象和 Swift 的数组结构体，都为我们提供了遍历内部元素的方法。我们可以使用这些方法来缩短代码篇幅。</p>
 <p>比如移除 someUIView 对象的所有 subview:  </p>
 <p>Swift<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">someUIView.subviews.forEach(&#123; $<span class="number">0</span>.removeFromSuperview() &#125;)</div></pre></td></tr></table></figure></p>
 <p>Objective-C<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[[someUIView subviews] makeObjectsPerformSelector:<span class="keyword">@selector</span>(removeFromSuperview)];</div></pre></td></tr></table></figure></p>
