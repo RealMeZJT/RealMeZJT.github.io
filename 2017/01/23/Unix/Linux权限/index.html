@@ -90,7 +90,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/01/23/Unix/Linux权限/index.html">
 <meta property="og:site_name" content="ZhouJiatao's Blog">
 <meta property="og:description" content="Unix-like(比如 Linux 和 OS X) 操作系统，有一个非常重要且根深蒂固的特性，就是允许多用户。 比如，连接上网络，我们可以多人同时通过 ssh(secure shell) 登录并操作同一个系统。 Linux 通过 文件所有权(ownership) 和 访问权限(permissions) 保护文件的安全，避免文件被其他用户破坏。 我们用 owner、group、others 来区">
-<meta property="og:updated_time" content="2017-01-24T09:20:37.658Z">
+<meta property="og:updated_time" content="2017-01-24T09:25:53.641Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux权限">
 <meta name="twitter:description" content="Unix-like(比如 Linux 和 OS X) 操作系统，有一个非常重要且根深蒂固的特性，就是允许多用户。 比如，连接上网络，我们可以多人同时通过 ssh(secure shell) 登录并操作同一个系统。 Linux 通过 文件所有权(ownership) 和 访问权限(permissions) 保护文件的安全，避免文件被其他用户破坏。 我们用 owner、group、others 来区">
@@ -338,6 +338,7 @@
       
         <p> Unix-like(比如 Linux 和 OS X) 操作系统，有一个非常重要且根深蒂固的特性，就是允许多用户。<br> 比如，连接上网络，我们可以多人同时通过 ssh(secure shell) 登录并操作同一个系统。<br> Linux 通过 文件所有权(ownership) 和 访问权限(permissions) 保护文件的安全，避免文件被其他用户破坏。<br> 我们用 owner、group、others 来区分不同等级的所有权， 并使用 Read(r)、Write(w)、Execute(x) 来区分不同的访问权限。组合起来，就可以限制不同等级的所有权拥有不同的访问权限。</p>
 <p> 前提：这里假设你已经知道<em>用户和群组</em>的概念和 <code>ls</code> 命令的基本用法。</p>
+<a id="more"></a>
 <h1 id="查看文件权限"><a href="#查看文件权限" class="headerlink" title="查看文件权限"></a>查看文件权限</h1><p> 通过 <code>ls</code> 命令查看文件权限。</p>
  <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ ls <span class="_">-l</span> ./myfile</div><div class="line">-r-xr-xr-x  1 zjt  wheel  626272 Sep 14 08:57 myfile</div></pre></td></tr></table></figure>
 <p> 让我们看看各部分的意思</p>
