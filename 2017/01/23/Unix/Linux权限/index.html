@@ -90,7 +90,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/01/23/Unix/Linux权限/index.html">
 <meta property="og:site_name" content="ZhouJiatao's Blog">
 <meta property="og:description" content="Unix-like(比如 Linux 和 OS X) 操作系统，有一个非常重要且根深蒂固的特性，就是允许多用户。 比如，连接上网络，我们可以多人同时通过 ssh(secure shell) 登录并操作同一个系统。 Linux 通过 文件所有权(ownership) 和 访问权限(permissions) 保护文件的安全，避免文件被其他用户破坏。 我们用 owner、group、others 来区">
-<meta property="og:updated_time" content="2017-01-24T09:25:53.641Z">
+<meta property="og:updated_time" content="2017-01-24T09:36:11.849Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux权限">
 <meta name="twitter:description" content="Unix-like(比如 Linux 和 OS X) 操作系统，有一个非常重要且根深蒂固的特性，就是允许多用户。 比如，连接上网络，我们可以多人同时通过 ssh(secure shell) 登录并操作同一个系统。 Linux 通过 文件所有权(ownership) 和 访问权限(permissions) 保护文件的安全，避免文件被其他用户破坏。 我们用 owner、group、others 来区">
@@ -388,6 +388,7 @@
 <p>Talk is cheap. Show me the code. — Torvalds, Linus (2000-08-25).</p>
 </blockquote>
 <p>该让我们看看 ‘code’ 了…  </p>
+<p>以下是示例：  </p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ chmod u+w myfile</div></pre></td></tr></table></figure>
 <p>增加拥有者对 myfile 写的权限。  </p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ chmod g-w myfile</div></pre></td></tr></table></figure>
@@ -398,6 +399,8 @@
 <p>增加所有人对 myfile 读的权限。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ chmod go+rx myfile</div></pre></td></tr></table></figure>
 <p>增加群组和其他人对 myfile 读和执行的权限。</p>
+<p>相信你看完示例后，已经理解了 chmod 的用法。  </p>
+<p>如果你还有什么问题，希望你能写下留言。</p>
 <p>参考链接:<br><a href="https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/3/html/Step_by_Step_Guide/s1-navigating-ownership.html" target="_blank" rel="external">Red Hat Enterprise Linux Step By Step Guide: 3.13. Ownership and Permissions</a><br><a href="https://www.linux.com/learn/understanding-linux-file-permissions" target="_blank" rel="external">Understanding Linux File Permissions</a><br><a href="http://linuxcommand.org/lc3_lts0090.php" target="_blank" rel="external">linuxcommand.org: Permissions</a><br><a href="https://www.digitalocean.com/community/tutorials/an-introduction-to-linux-permissions" target="_blank" rel="external">An Introduction to Linux Permissions</a><br><a href="http://cn.linux.vbird.org/linux_basic/0210filepermission_2.php" target="_blank" rel="external">鸟哥的Linux私房菜: 第六章、Linux 的文件权限与目录配置</a><br><a href="http://www.ibm.com/developerworks/cn/linux/l-lpic1-v3-104-5/" target="_blank" rel="external">学习 Linux，101: 管理文件权限和所有权</a>  </p>
 
       
